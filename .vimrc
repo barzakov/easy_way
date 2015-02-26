@@ -24,14 +24,23 @@ autocmd FileType perl set number
 let perl_extended_vars = 1
 
 
+" Tets prove etc
+" Te comiler below need perlprove.vim file in .vim/compiler dir.
+au BufRead,BufNewFile *.t set filetype=perl | compiler perlprove
 if has("autocmd")
 augroup content
 autocmd BufNewFile *.t
-   \ 0put = '#!/usr/bin/perl -T'  |
+   \ 0put = '#!/usr/bin/perl'  |
    \ 1put = 'use strict;' |
    \ 2put = 'use warnings;' |
    \ 3put = 'use Test::Simple;' |
    \ 4put = 'use Test::More;' |
    \ 5put = 'use Test::Harness;' |
+augroup END
+augroup content
+autocmd BufNewFile *.p*
+   \ 0put = '#!/usr/bin/perl'  |
+   \ 1put = 'use strict;' |
+   \ 2put = 'use warnings;' |
 augroup END
 endif
